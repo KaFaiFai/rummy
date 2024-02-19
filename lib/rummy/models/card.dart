@@ -1,19 +1,38 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:rummy/rummy/const.dart';
 
-part 'card.g.dart';
-
-@JsonSerializable()
 class Card {
   final int rank;
   final int suit;
 
-  Card(this.rank, this.suit);
-
-  factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
-
-  Map<String, dynamic> toJson() => _$CardToJson(this);
-
-  int get _rank {
-    return 1;
+  Card(this.rank, this.suit) {
+    assert(rank < numRank);
+    assert(suit < numSuit);
   }
+
+  @override
+  String toString() {
+    return "Card($rank,$suit)";
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(rank, suit);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other is Card) {
+      return rank == other.rank && suit == other.suit;
+    }
+    return false;
+  }
+
+  factory Card.fromJson(String jsonString) {
+    final components = jsonString.split(',');
+    final rank = int.parse(components[0]);
+    final suit = int.parse(components[1]);
+    return Card(rank, suit);
+  }
+
+  String toJson() => "$rank,$suit";
 }
