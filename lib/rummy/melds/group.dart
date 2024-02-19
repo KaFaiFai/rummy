@@ -1,6 +1,6 @@
-part of 'meld_type.dart';
+part of 'meld.dart';
 
-class Group extends MeldType {
+class Group extends Meld {
   @override
   List<Card> arrangeCards(List<Card> cards) {
     return [...cards]..sort((card1, card2) {

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rummy/rummy/melds/meld_type.dart';
+import 'package:rummy/rummy/melds/meld.dart';
 import 'package:rummy/rummy/models/card.dart';
 
 void main() {
@@ -8,7 +8,7 @@ void main() {
 
     test('serialize', () {
       final json = meldType.toJson();
-      final fromJson = MeldType.fromJson(json);
+      final fromJson = Meld.fromJson(json);
       expect(fromJson, isA<Run>());
     });
 

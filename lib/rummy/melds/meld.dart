@@ -1,11 +1,30 @@
 import '../models/card.dart';
-import 'meld_type.dart';
 
-class Meld {
-  final List<Card> cards;
-  final MeldType type;
+part 'group.dart';
+part 'run.dart';
 
-  Meld(List<Card> cards, this.type) : cards = cards..sort() {
-    assert(cards.length >= 3);
+sealed class Meld {
+  Meld();
+
+  /// arrange cards in desired order
+  List<Card> arrangeCards(List<Card> cards);
+
+  /// check if the cards belong to this type
+  bool checkCards(List<Card> cards);
+
+  String name() {
+    return runtimeType.toString();
+  }
+
+  factory Meld.fromJson(Map<String, dynamic> json) {
+    return switch (json["_class"]) {
+      "Run" => Run(),
+      "Group" => Group(),
+      _ => throw 'Invalid Meld type',
+    };
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'_class': name()};
   }
 }
