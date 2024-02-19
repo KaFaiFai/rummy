@@ -15,6 +15,10 @@ class Run extends Meld {
 
   @override
   bool checkCards(List<Card> cards) {
+    if (cards.length < minMeldNum) {
+      return false;
+    }
+
     final cardsSorted = arrangeCards(cards);
 
     final suit = cardsSorted.first.suit;

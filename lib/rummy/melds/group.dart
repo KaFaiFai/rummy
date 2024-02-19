@@ -15,6 +15,10 @@ class Group extends Meld {
 
   @override
   bool checkCards(List<Card> cards) {
+    if (cards.length < minMeldNum) {
+      return false;
+    }
+
     final rank = cards.first.rank;
     for (var card in cards) {
       if (card.rank != rank) {
