@@ -26,5 +26,12 @@ void main() {
       final cards = {card, card2};
       expect(cards, equals({Card(1, 2)}));
     });
+
+    test('compare', () {
+      final cards = [Card(2, 2), Card(3, 1), Card(3, 2), Card(3, 3)]..shuffle();
+      print(cards);
+      final cardsSorted = cards..sort();
+      expect(cardsSorted, equals([Card(2, 2), Card(3, 1), Card(3, 2), Card(3, 3)]));
+    });
   });
 }

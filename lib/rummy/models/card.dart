@@ -1,6 +1,6 @@
 import 'package:rummy/rummy/const.dart';
 
-class Card {
+class Card implements Comparable<Card> {
   final int rank;
   final int suit;
 
@@ -35,4 +35,14 @@ class Card {
   }
 
   String toJson() => "$rank,$suit";
+
+  @override
+  int compareTo(Card other) {
+    // orders := (rank, suit)
+    final compareRank = rank.compareTo(other.rank);
+    if (compareRank != 0) {
+      return compareRank;
+    }
+    return suit.compareTo(other.suit);
+  }
 }
