@@ -4,11 +4,11 @@ class Group extends MeldType {
   @override
   List<Card> arrangeCards(List<Card> cards) {
     return [...cards]..sort((card1, card2) {
-        // Sort by rank first, then suit
-        if (card1.rank != card2.rank) {
-          return card1.rank.compareTo(card2.rank);
-        } else {
+        // Sort by suit first, then rank
+        if (card1.suit != card2.suit) {
           return card1.suit.compareTo(card2.suit);
+        } else {
+          return card1.rank.compareTo(card2.rank);
         }
       });
   }
