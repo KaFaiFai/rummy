@@ -21,8 +21,8 @@ class Run extends MeldType {
     final begin = cardsSorted.first.rank;
 
     for (var (i, card) in cardsSorted.indexed) {
-      final expectedCard = Card(begin + i, suit);
-      if (card != expectedCard) {
+      final cardExpected = Card(begin + i, suit);
+      if (card != cardExpected) {
         return false;
       }
     }
