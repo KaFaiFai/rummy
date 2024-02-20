@@ -22,7 +22,7 @@ class RummyAi {
   }
 
   /// repeatedly getting a random sample from a random meld until there is no valid option
-  static List<(Meld, List<Card>)> generateMelds(List<Card> cards, List<Meld> melds, {Random? random}) {
+  static List<(Meld, List<Card>)> generateMeldCards(List<Card> cards, List<Meld> melds, {Random? random}) {
     final rnd = random ?? Random();
 
     final meldCards = <(Meld, List<Card>)>[];
@@ -47,7 +47,15 @@ class RummyAi {
     return meldCards;
   }
 
-  static Puzzle? generatePuzzle(List<Meld> melds, {Random? random}) {
-    throw UnimplementedError();
+  static Puzzle generatePuzzle(List<Meld> melds, {Random? random}) {
+    final cards = Card.getAllCards();
+    final allPuzzleMeldCards = generateMeldCards(cards, melds, random: random);
+    final allPuzzleCards = allPuzzleMeldCards.expand((e) => e.$2).toList();
+
+    final initialMeldCards = generateMeldCards(allPuzzleCards, melds);
+    final initialCards = initialMeldCards.expand((e) => e.$2).toList();
+
+    final hands = allPuzzleCards.where((e) => !initialCards.contains(e)).toList(); // duplicates are removed
+    return Puzzle(melds, allPuzzleMeldCards, initialMeldCards, hands);
   }
 }
