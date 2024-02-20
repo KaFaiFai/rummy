@@ -33,3 +33,5 @@ class Run extends Meld {
     return true;
   }
 }
+
+extension RummyAiExtension on Run {}
