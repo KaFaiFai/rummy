@@ -9,11 +9,27 @@ void main() {
   group('generatePuzzle', () {
     test('all cards & all melds', () {
       print("----- all cards & all melds -----");
-      final rnd = Random(42);
+      final stopwatch = Stopwatch()..start();
+
+      final rnd = Random(2);
       final cards = Card.getAllCards();
       final melds = [Run(), Group()];
 
       final puzzle = RummyAi.generatePuzzle(cards, melds, random: rnd);
+      print(puzzle);
+
+      stopwatch.stop();
+      print("generatePuzzle: ${stopwatch.elapsedMilliseconds / 1000}s");
+    });
+
+    test('all cards & all melds with max', () {
+      print("----- all cards & all melds with max -----");
+
+      final rnd = Random(2);
+      final cards = Card.getAllCards();
+      final melds = [Run(), Group()];
+
+      final puzzle = RummyAi.generatePuzzle(cards, melds, random: rnd, maxCardsLength: 5, maxMeldCards: 5);
       print(puzzle);
     });
 

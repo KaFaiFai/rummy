@@ -1,7 +1,7 @@
 part of 'rummy_ai.dart';
 
 extension on Meld {
-  List<Card>? getRandomSample(List<Card> cards, {Random? random}) {
+  List<Card>? getRandomSample(List<Card> cards, {Random? random, int maxLength = 10000}) {
     final rnd = random ?? Random();
 
     List<Card>? samples;
@@ -12,7 +12,7 @@ extension on Meld {
         if (allSamples.isNotEmpty) {
           final randomIndex = rnd.nextInt(allSamples.length);
           final randomSamples = allSamples[randomIndex];
-          final randomLength = rnd.nextInt(randomSamples.length - (minMeldNum - 1)) + minMeldNum;
+          final randomLength = rnd.nextInt(min(randomSamples.length, maxLength) - (minMeldNum - 1)) + minMeldNum;
           final randomRunStart = rnd.nextInt(randomSamples.length - (randomLength - 1));
           samples = randomSamples.sublist(randomRunStart, randomRunStart + randomLength);
         }
@@ -21,7 +21,7 @@ extension on Meld {
         if (allSamples.isNotEmpty) {
           final randomIndex = rnd.nextInt(allSamples.length);
           final randomSamples = allSamples[randomIndex];
-          final randomLength = rnd.nextInt(randomSamples.length - (minMeldNum - 1)) + minMeldNum;
+          final randomLength = rnd.nextInt(min(randomSamples.length, maxLength) - (minMeldNum - 1)) + minMeldNum;
           randomSamples.shuffle(rnd);
           samples = randomSamples.sublist(0, randomLength);
         }

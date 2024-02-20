@@ -17,22 +17,28 @@ class RummyAi {
     return meld.getAllPossibleSamples(cards);
   }
 
-  static List<Card>? getRandomSample(List<Card> cards, Meld meld, {Random? random}) {
-    return meld.getRandomSample(cards, random: random);
+  static List<Card>? getRandomSample(List<Card> cards, Meld meld, {Random? random, int maxLength = 10000}) {
+    return meld.getRandomSample(cards, random: random, maxLength: maxLength);
   }
 
   /// repeatedly getting a random sample from a random meld until there is no valid option
-  static List<(Meld, List<Card>)> generateMeldCards(List<Card> cards, List<Meld> melds, {Random? random}) {
+  static List<(Meld, List<Card>)> generateMeldCards(
+    List<Card> cards,
+    List<Meld> melds, {
+    Random? random,
+    int maxCardsLength = 10000,
+    int maxMeldCards = 10000,
+  }) {
     final rnd = random ?? Random();
 
     final meldCards = <(Meld, List<Card>)>[];
     final remainingCards = [...cards];
     final remainingMelds = [...melds];
 
-    while (remainingMelds.isNotEmpty) {
+    while (remainingMelds.isNotEmpty && meldCards.length < maxMeldCards) {
       final randomIndex = rnd.nextInt(remainingMelds.length);
       final meld = remainingMelds[randomIndex];
-      final randomSample = getRandomSample(remainingCards, meld, random: random);
+      final randomSample = getRandomSample(remainingCards, meld, random: random, maxLength: maxCardsLength);
 
       if (randomSample != null) {
         meldCards.add((meld, randomSample));
@@ -47,11 +53,18 @@ class RummyAi {
     return meldCards;
   }
 
-  static Puzzle generatePuzzle(List<Card> cards, List<Meld> melds, {Random? random}) {
-    final allPuzzleMeldCards = generateMeldCards(cards, melds, random: random);
+  static Puzzle generatePuzzle(
+    List<Card> cards,
+    List<Meld> melds, {
+    Random? random,
+    int maxCardsLength = 10000,
+    int maxMeldCards = 10000,
+  }) {
+    final allPuzzleMeldCards =
+        generateMeldCards(cards, melds, random: random, maxCardsLength: maxCardsLength, maxMeldCards: maxMeldCards);
     final allPuzzleCards = allPuzzleMeldCards.expand((e) => e.$2).toList();
 
-    final initialMeldCards = generateMeldCards(allPuzzleCards, melds, random: random);
+    final initialMeldCards = generateMeldCards(allPuzzleCards, melds, random: random, maxCardsLength: maxCardsLength);
     final initialCards = initialMeldCards.expand((e) => e.$2).toList();
 
     final hands = [...allPuzzleCards];
