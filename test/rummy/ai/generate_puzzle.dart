@@ -8,7 +8,8 @@ import 'package:rummy/rummy/models/card.dart';
 void main() {
   group('generatePuzzle', () {
     test('all cards & all melds', () {
-      final rnd = Random(1);
+      print("----- all cards & all melds -----");
+      final rnd = Random(42);
       final cards = Card.getAllCards();
       final melds = [Run(), Group()];
 
@@ -17,6 +18,7 @@ void main() {
     });
 
     test('cards with duplicates & all melds', () {
+      print("----- cards with duplicates & all melds -----");
       final rnd = Random(1);
       final cards = [Card(0, 0), Card(0, 1), Card(0, 2), Card(0, 0), Card(0, 1), Card(0, 2)];
       final melds = [Run(), Group()];

@@ -20,8 +20,8 @@ extension on Meld {
               } else {
                 if (run.length >= minMeldNum) {
                   runs.add(run);
-                  run = [suit[i]];
                 }
+                run = [suit[i]];
               }
             }
             if (run.length >= minMeldNum) {

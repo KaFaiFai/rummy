@@ -51,7 +51,7 @@ class RummyAi {
     final allPuzzleMeldCards = generateMeldCards(cards, melds, random: random);
     final allPuzzleCards = allPuzzleMeldCards.expand((e) => e.$2).toList();
 
-    final initialMeldCards = generateMeldCards(allPuzzleCards, melds);
+    final initialMeldCards = generateMeldCards(allPuzzleCards, melds, random: random);
     final initialCards = initialMeldCards.expand((e) => e.$2).toList();
 
     final hands = [...allPuzzleCards];
