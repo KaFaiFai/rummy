@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:rummy/rummy/const.dart';
 import 'package:rummy/rummy/melds/meld.dart';
 import 'package:rummy/rummy/puzzle.dart';
@@ -72,5 +73,42 @@ class RummyAi {
       hands.remove(card);
     }
     return Puzzle(melds, allPuzzleMeldCards, initialMeldCards, hands);
+  }
+
+  static double similarity(List<Card> cards1, List<Card> cards2) {
+    final extraCards1 = [...cards1];
+    for (var card in cards2) {
+      extraCards1.remove(card);
+    }
+    final extraCards2 = [...cards2];
+    for (var card in cards1) {
+      extraCards2.remove(card);
+    }
+    final different = extraCards1.length + extraCards2.length;
+    final same = cards1.length + cards2.length - different;
+
+    return same / (same + different);
+  }
+
+  static double difficulty(Puzzle puzzle) {
+    final solutionCards = puzzle.intendedSolution.map((e) => e.$2).toList();
+    final puzzleCards = puzzle.meldCards.map((e) => e.$2).toList();
+    double difficultyScore = 0;
+
+    // every duplicates increases 1 difficulty
+    final cardsToRemove = <List<Card>>[];
+    for (var sc in solutionCards) {
+      for (var pc in puzzleCards) {
+        if (listEquals(sc, pc)) {
+          cardsToRemove.add(sc);
+          cardsToRemove.add(pc);
+          difficultyScore++;
+        }
+      }
+    }
+    solutionCards.removeWhere((e) => cardsToRemove.contains(e));
+    puzzleCards.removeWhere((e) => cardsToRemove.contains(e));
+
+    return difficultyScore;
   }
 }
