@@ -1,6 +1,6 @@
 part of 'rummy_ai.dart';
 
-extension _RummyAiExtensionGetAllPossibleSamples on Meld {
+extension on Meld {
   /// helper function for getRandomSample()
   /// sometimes, it does not make sense to implement this function
   List<List<Card>> getAllPossibleSamples(List<Card> cards) {
@@ -33,7 +33,9 @@ extension _RummyAiExtensionGetAllPossibleSamples on Meld {
 
         return runs;
       case Group():
-        throw UnimplementedError();
+        final suits = List.generate(numRank, (i) => cards.where((e) => e.rank == i).toSet().toList());
+        final availableSuits = suits.where((e) => e.length >= minMeldNum).toList();
+        return availableSuits;
     }
   }
 }

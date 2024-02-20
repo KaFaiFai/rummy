@@ -12,6 +12,9 @@ void main() {
       print(samples);
     });
 
-    test('group', () {});
+    test('group', () {
+      final samples = RummyAi.getAllPossibleSamples(cards, Group());
+      print(samples);
+    });
   });
 }

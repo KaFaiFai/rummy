@@ -14,6 +14,9 @@ void main() {
       print(sample);
     });
 
-    test('group', () {});
+    test('group', () {
+      final sample = RummyAi.getRandomSample(cards, Group(), random: Random(0));
+      print(sample);
+    });
   });
 }
