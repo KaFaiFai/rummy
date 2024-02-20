@@ -19,10 +19,18 @@ class Puzzle {
     }
     final solutionCards = intendedSolution.expand((e) => e.$2).toList();
     final puzzleCards = meldCards.expand((e) => e.$2).toList() + hands;
-    assert(solutionCards.every((e) => puzzleCards.contains(e)),
-        "Extra solution cards: ${solutionCards.where((e) => !puzzleCards.contains(e))}");
-    assert(puzzleCards.every((e) => solutionCards.contains(e)),
-        "Extra puzzle cards: ${puzzleCards.where((e) => !solutionCards.contains(e))}");
+
+    final extraSolutionCards = [...solutionCards];
+    for (var card in puzzleCards) {
+      extraSolutionCards.remove(card);
+    }
+    assert(extraSolutionCards.isEmpty, "Extra solution cards: $extraSolutionCards");
+
+    final extraPuzzleCards = [...puzzleCards];
+    for (var card in puzzleCards) {
+      extraPuzzleCards.remove(card);
+    }
+    assert(extraPuzzleCards.isEmpty, "Extra puzzle cards: $extraPuzzleCards");
   }
 
   @override

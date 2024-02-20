@@ -47,15 +47,17 @@ class RummyAi {
     return meldCards;
   }
 
-  static Puzzle generatePuzzle(List<Meld> melds, {Random? random}) {
-    final cards = Card.getAllCards();
+  static Puzzle generatePuzzle(List<Card> cards, List<Meld> melds, {Random? random}) {
     final allPuzzleMeldCards = generateMeldCards(cards, melds, random: random);
     final allPuzzleCards = allPuzzleMeldCards.expand((e) => e.$2).toList();
 
     final initialMeldCards = generateMeldCards(allPuzzleCards, melds);
     final initialCards = initialMeldCards.expand((e) => e.$2).toList();
 
-    final hands = allPuzzleCards.where((e) => !initialCards.contains(e)).toList(); // duplicates are removed
+    final hands = [...allPuzzleCards];
+    for (var card in initialCards) {
+      hands.remove(card);
+    }
     return Puzzle(melds, allPuzzleMeldCards, initialMeldCards, hands);
   }
 }
