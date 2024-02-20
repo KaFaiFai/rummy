@@ -1,16 +1,27 @@
 import 'package:rummy/rummy/const.dart';
 import 'package:rummy/rummy/melds/meld.dart';
+import 'package:rummy/rummy/puzzle.dart';
 
 import '../models/card.dart';
 
 class RummyAi {
-  static List<Card>? sampleFromPool(Set<Card> cards, Meld meld) {
+  RummyAi._();
+
+  static List<Card>? sampleFromPool(List<Card> cards, Meld meld) {
     return meld.sampleFromPool(cards);
+  }
+
+  static List<(List<Card>, Meld)> generateMelds(List<Meld> melds, [List<Card>? cards]) {
+    throw UnimplementedError();
+  }
+
+  static Puzzle? generatePuzzle(List<Meld> melds) {
+    throw UnimplementedError();
   }
 }
 
 extension RummyAiExtension on Meld {
-  List<Card>? sampleFromPool(Set<Card> cards) {
+  List<Card>? sampleFromPool(List<Card> cards) {
     List<Card>? samples;
     switch (this) {
       case Run():
@@ -21,7 +32,7 @@ extension RummyAiExtension on Meld {
 
         samples = [];
       case Group():
-      // samples = [];
+        throw UnimplementedError();
     }
 
     if (samples == null) {
