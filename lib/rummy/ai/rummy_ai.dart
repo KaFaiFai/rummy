@@ -21,10 +21,11 @@ class RummyAi {
     return meld.getRandomSample(cards, random: random);
   }
 
-  static List<(List<Card>, Meld)> generateMelds(List<Card> cards, List<Meld> melds, {Random? random}) {
+  /// repeatedly getting a random sample from a random meld until there is no valid option
+  static List<(Meld, List<Card>)> generateMelds(List<Card> cards, List<Meld> melds, {Random? random}) {
     final rnd = random ?? Random();
 
-    final cardsMeld = <(List<Card>, Meld)>[];
+    final meldCards = <(Meld, List<Card>)>[];
     final remainingCards = [...cards];
     final remainingMelds = [...melds];
 
@@ -34,7 +35,7 @@ class RummyAi {
       final randomSample = getRandomSample(remainingCards, meld, random: random);
 
       if (randomSample != null) {
-        cardsMeld.add((randomSample, meld));
+        meldCards.add((meld, randomSample));
         for (var card in randomSample) {
           remainingCards.remove(card);
         }
@@ -43,7 +44,7 @@ class RummyAi {
       }
     }
 
-    return cardsMeld;
+    return meldCards;
   }
 
   static Puzzle? generatePuzzle(List<Meld> melds, {Random? random}) {

@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:rummy/rummy/const.dart';
 
 import '../models/card.dart';
 
 part 'group.dart';
+
 part 'run.dart';
 
 sealed class Meld {
@@ -14,7 +17,8 @@ sealed class Meld {
   /// check if the cards belong to this type
   bool checkCards(List<Card> cards);
 
-  String name() {
+  @override
+  String toString() {
     return runtimeType.toString();
   }
 
@@ -27,6 +31,19 @@ sealed class Meld {
   }
 
   Map<String, dynamic> toJson() {
-    return {'_class': name()};
+    return {'_class': toString()};
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(toString(), jsonEncode(toJson()));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other is Meld) {
+      return (jsonEncode(toJson())) == jsonEncode(other.toJson());
+    }
+    return false;
   }
 }
