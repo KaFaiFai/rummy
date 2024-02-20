@@ -9,6 +9,11 @@ class Card implements Comparable<Card> {
     assert(suit < numSuit);
   }
 
+  static List<Card> getAllCards() {
+    final cards = List.generate(numRank * numSuit, (i) => Card(i % 13, (i / 13).floor()));
+    return cards;
+  }
+
   @override
   String toString() {
     return "Card($rank,$suit)";

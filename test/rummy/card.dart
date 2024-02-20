@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rummy/rummy/const.dart';
 import 'package:rummy/rummy/models/card.dart';
 
 void main() {
@@ -16,6 +17,12 @@ void main() {
       print("$card");
       expect(card.rank, equals(1));
       expect(card.suit, equals(2));
+    });
+
+    test('getAllCards', () {
+      final cards = Card.getAllCards();
+      print(cards);
+      expect(cards.length, equals(numRank * numSuit));
     });
 
     test('hash', () {
