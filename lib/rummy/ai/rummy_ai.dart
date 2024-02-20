@@ -91,9 +91,17 @@ class RummyAi {
   }
 
   static double difficulty(Puzzle puzzle) {
+    /// 1. calculate the similarity of each solution and puzzle cards pair
+    /// 2. match them from the largest similarity using greedy algorithm
+    /// 3. any remaining cards are matched with an empty card list
+    /// 4. now we have a list of matches which includes all solution and puzzle cards and their similarities
+    /// 5. difficulty := sum(1 / (similarity + 0.01))
     final solutionCards = puzzle.intendedSolution.map((e) => e.$2).toList();
     final puzzleCards = puzzle.meldCards.map((e) => e.$2).toList();
     double difficultyScore = 0;
+
+    final matchedSolutionCards = <List<Card>>[];
+    final matchedSPuzzleCards = <List<Card>>[];
 
     // every duplicates increases 1 difficulty
     final cardsToRemove = <List<Card>>[];
