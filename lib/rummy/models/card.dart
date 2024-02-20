@@ -5,8 +5,8 @@ class Card implements Comparable<Card> {
   final int suit;
 
   Card(this.rank, this.suit) {
-    assert(rank < numRank);
-    assert(suit < numSuit);
+    assert(0 <= rank && rank < numRank);
+    assert(0 <= suit && suit < numSuit);
   }
 
   static List<Card> getAllCards() {

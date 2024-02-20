@@ -14,7 +14,7 @@ extension on Meld {
           final randomSamples = allSamples[randomIndex];
           final randomLength = rnd.nextInt(randomSamples.length - (minMeldNum - 1)) + minMeldNum;
           final randomRunStart = rnd.nextInt(randomSamples.length - (randomLength - 1));
-          samples = randomSamples.sublist(randomRunStart, randomRunStart + randomLength - 1);
+          samples = randomSamples.sublist(randomRunStart, randomRunStart + randomLength);
         }
       case Group():
         final allSamples = getAllPossibleSamples(cards);
@@ -23,7 +23,7 @@ extension on Meld {
           final randomSamples = allSamples[randomIndex];
           final randomLength = rnd.nextInt(randomSamples.length - (minMeldNum - 1)) + minMeldNum;
           randomSamples.shuffle(rnd);
-          samples = randomSamples.sublist(0, randomLength - 1);
+          samples = randomSamples.sublist(0, randomLength);
         }
     }
 
