@@ -10,7 +10,7 @@ void main() {
     final cards = Card.getAllCards();
 
     test('run', () {
-      final sample = RummyAi.getRandomSample(cards, Run(), random: Random(0));
+      final sample = RummyAi.getRandomSample(cards, Run(), random: Random(5));
       print(sample);
     });
 

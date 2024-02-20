@@ -27,6 +27,8 @@ class RummyAi {
 }
 
 extension _RummyAiExtension on Meld {
+  /// helper function for getRandomSample()
+  /// sometimes, it does not make sense to implement this function
   List<List<Card>> getAllPossibleSamples(List<Card> cards) {
     switch (this) {
       case Run():
@@ -72,8 +74,9 @@ extension _RummyAiExtension on Meld {
         if (runs.isNotEmpty) {
           final randomRunIndex = rnd.nextInt(runs.length);
           final randomRun = runs[randomRunIndex];
-          final randomRunLength = rnd.nextInt(randomRun.length - minMeldNum) + minMeldNum;
-          samples = randomRun.sublist(0, randomRunLength);
+          final randomRunLength = rnd.nextInt(randomRun.length - (minMeldNum - 1)) + minMeldNum;
+          final randomRunStart = rnd.nextInt(randomRun.length - (randomRunLength - 1));
+          samples = randomRun.sublist(randomRunStart, randomRunStart + randomRunLength);
         }
       case Group():
         throw UnimplementedError();
