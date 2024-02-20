@@ -94,24 +94,22 @@ class RummyAi {
     /// 2. match them from the largest similarity using greedy algorithm
     /// 3. any remaining cards are matched with an empty card list
     /// 4. now we have a list of matches which includes all solution and puzzle cards and their similarities
-    /// 5. difficulty := sum(1 - similarity)
-    double difficultyScore = 0;
-
+    /// 5. difficulty := ln(sum(1 - similarity) * #solution * #puzzle + e)
     final solutionCards = puzzle.intendedSolution.map((e) => e.$2).toList();
     final puzzleCards = puzzle.meldCards.map((e) => e.$2).toList();
 
+    final similarityScores = <double>[];
     while (solutionCards.isNotEmpty || puzzleCards.isNotEmpty) {
-      double similarityScore;
       if (solutionCards.isEmpty) {
         final cards = puzzleCards.first;
-        similarityScore = similarity(cards, []);
+        similarityScores.add(similarity(cards, []));
         puzzleCards.remove(cards);
       } else if (puzzleCards.isEmpty) {
         final cards = solutionCards.first;
-        similarityScore = similarity(cards, []);
+        similarityScores.add(similarity(cards, []));
         solutionCards.remove(cards);
       } else {
-        similarityScore = 0;
+        double similarityScore = 0;
         (List<Card>, List<Card>) match = (solutionCards.first, puzzleCards.first);
         for (var sc in solutionCards) {
           for (var pc in puzzleCards) {
@@ -122,12 +120,16 @@ class RummyAi {
             }
           }
         }
+        similarityScores.add(similarityScore);
         solutionCards.remove(match.$1);
         puzzleCards.remove(match.$2);
       }
-
-      difficultyScore += 1 - similarityScore;
     }
+    print(similarityScores);
+    final difficultyScore = log(similarityScores.map((e) => (1 - e)).reduce((v, e) => v + e) *
+            puzzle.intendedSolution.length *
+            puzzle.meldCards.length +
+        e);
 
     return difficultyScore;
   }

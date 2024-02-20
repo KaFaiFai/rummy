@@ -43,11 +43,11 @@ void main() {
     });
 
     test('generated puzzle', () {
-      final rnd = Random(1);
+      final rnd = Random();
       final cards = Card.getAllCards();
       final melds = [Run(), Group()];
 
-      final puzzle = RummyAi.generatePuzzle(cards, melds, random: rnd, maxCardsLength: 5);
+      final puzzle = RummyAi.generatePuzzle(cards, melds, random: rnd, maxCardsLength: 5, maxMeldCards: 4);
       print(puzzle);
       final difficulty = RummyAi.difficulty(puzzle);
       print(difficulty);
