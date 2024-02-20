@@ -8,6 +8,9 @@ class Puzzle {
   final List<Card> hands;
 
   Puzzle(this.melds, this.meldCards, this.hands) {
-    assert(true);
+    for (var (meld, cards) in meldCards) {
+      assert(melds.contains(meld), "Unknown meldCard ${(meld, cards)} in $melds");
+      assert(meld.checkCards(cards), "meldCard mismatch ${(meld, cards)}");
+    }
   }
 }
