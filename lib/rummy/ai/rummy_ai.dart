@@ -9,8 +9,12 @@ import '../models/card.dart';
 class RummyAi {
   RummyAi._();
 
-  static List<Card>? getRandomSample(List<Card> cards, Meld meldType, {Random? random}) {
-    return meldType.getRandomSample(cards, random: random);
+  static List<List<Card>> getAllPossibleSamples(List<Card> cards, Meld meld) {
+    return meld.getAllPossibleSamples(cards);
+  }
+
+  static List<Card>? getRandomSample(List<Card> cards, Meld meld, {Random? random}) {
+    return meld.getRandomSample(cards, random: random);
   }
 
   static List<(List<Card>, Meld)> generateMelds(List<Meld> melds, {List<Card>? cards, Random? random}) {
@@ -23,51 +27,54 @@ class RummyAi {
 }
 
 extension _RummyAiExtension on Meld {
+  List<List<Card>> getAllPossibleSamples(List<Card> cards) {
+    switch (this) {
+      case Run():
+        final List<List<Card>> runs = [];
+        for (var i = 0; i < numSuit; i++) {
+          // unique cards of current suit
+          final suit = cards.where((e) => e.suit == i).toSet().toList();
+          suit.sort();
+
+          if (suit.length > 1) {
+            List<Card> run = [suit.first];
+            for (var i = 1; i < suit.length; i++) {
+              if (suit[i].rank == run.last.rank + 1) {
+                run.add(suit[i]);
+              } else {
+                if (run.length >= minMeldNum) {
+                  runs.add(run);
+                  run = [];
+                }
+              }
+            }
+            if (run.length >= minMeldNum) {
+              runs.add(run);
+              run = [];
+            }
+          }
+        }
+
+        return runs;
+      case Group():
+        throw UnimplementedError();
+    }
+  }
+
   List<Card>? getRandomSample(List<Card> cards, {Random? random}) {
     final rnd = random ?? Random();
 
     List<Card>? samples;
     switch (this) {
       case Run():
-        // get consecutive ranks
-        final List<List<int>> rankRuns = [];
-        final uniqueRanks = cards.map((e) => e.rank).toSet().toList()..sort();
+        final List<List<Card>> runs = getAllPossibleSamples(cards);
 
-        if (uniqueRanks.length > 1) {
-          List<int> rankRun = [uniqueRanks.first];
-          for (var i = 1; i < uniqueRanks.length; i++) {
-            if (uniqueRanks[i] == rankRun.last + 1) {
-              rankRun.add(uniqueRanks[i]);
-            } else {
-              if (rankRun.length >= minMeldNum) {
-                rankRuns.add(rankRun);
-                rankRun = [];
-              }
-            }
-          }
-          if (rankRun.length >= minMeldNum) {
-            rankRuns.add(rankRun);
-          }
+        if (runs.isNotEmpty) {
+          final randomRunIndex = rnd.nextInt(runs.length);
+          final randomRun = runs[randomRunIndex];
+          final randomRunLength = rnd.nextInt(randomRun.length - minMeldNum) + minMeldNum;
+          samples = randomRun.sublist(0, randomRunLength);
         }
-
-        if (rankRuns.isNotEmpty) {
-          // choose a random run
-          final randomIndex = rnd.nextInt(rankRuns.length);
-          final randomFullRankRun = rankRuns[randomIndex];
-
-          final randomLength = rnd.nextInt(randomFullRankRun.length - (minMeldNum - 1)) + minMeldNum; // 4 -> 3, 4
-          final randomStart = rnd.nextInt(randomFullRankRun.length - (randomLength - 1)); // 4 -> 0, 1
-          final randomRankRun = randomFullRankRun.sublist(randomStart, randomStart + randomLength);
-
-          // consider the available suits
-          samples = [];
-          for (var rank in randomRankRun) {
-            final availableCards = cards.where((e) => e.rank == rank).toList();
-            final randomIndex = rnd.nextInt(availableCards.length);
-            samples.add(availableCards[randomIndex]);
-          }
-        }
-
       case Group():
         throw UnimplementedError();
     }
@@ -75,7 +82,6 @@ extension _RummyAiExtension on Meld {
     if (samples == null) {
       return null;
     }
-    print(samples);
     assert(checkCards(samples));
     return arrangeCards(samples);
   }
