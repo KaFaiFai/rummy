@@ -16,7 +16,8 @@ class Card implements Comparable<Card> {
 
   @override
   String toString() {
-    return "Card($rank,$suit)";
+    const suitChars = '♠♡♣♢';
+    return "$rank${suitChars[suit % 4]}";
   }
 
   @override
