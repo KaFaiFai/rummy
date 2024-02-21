@@ -4,12 +4,12 @@ import 'models/card.dart';
 
 class Puzzle {
   final List<Meld> melds;
-  final List<(Meld, List<Card>)> intendedSolution;
+  final List<(Meld, List<Card>)> solution;
   final List<(Meld, List<Card>)> meldCards;
   final List<Card> hands;
 
-  Puzzle(this.melds, this.intendedSolution, this.meldCards, this.hands) {
-    for (var (meld, cards) in intendedSolution) {
+  Puzzle(this.melds, this.solution, this.meldCards, this.hands) {
+    for (var (meld, cards) in solution) {
       assert(melds.contains(meld), "Unknown meldCard ${(meld, cards)} in $melds");
       assert(meld.checkCards(cards), "meldCard mismatch ${(meld, cards)}");
     }
@@ -17,7 +17,7 @@ class Puzzle {
       assert(melds.contains(meld), "Unknown meldCard ${(meld, cards)} in $melds");
       assert(meld.checkCards(cards), "meldCard mismatch ${(meld, cards)}");
     }
-    final solutionCards = intendedSolution.expand((e) => e.$2).toList();
+    final solutionCards = solution.expand((e) => e.$2).toList();
     final puzzleCards = meldCards.expand((e) => e.$2).toList() + hands;
 
     final extraSolutionCards = [...solutionCards];
@@ -35,6 +35,6 @@ class Puzzle {
 
   @override
   String toString() {
-    return "Melds: $melds\nIntended solution:$intendedSolution\nCards: $meldCards\nHands: $hands";
+    return "Melds: $melds\nSolution:$solution\nCards: $meldCards\nHands: $hands";
   }
 }

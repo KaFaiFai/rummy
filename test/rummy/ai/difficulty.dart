@@ -60,7 +60,7 @@ void main() {
       final cards = Card.getAllCards() + Card.getAllCards();
       final melds = [Run(), Group()];
 
-      final puzzle = RummyAi.generatePuzzle(cards, melds, random: rnd, maxCardsLength: 5, maxMeldCards: 15);
+      final puzzle = RummyAi.generatePuzzle(cards, melds, random: rnd, maxCardsLength: 5, maxMeldCards: 7);
       print(puzzle);
       final difficulty = RummyAi.difficulty(puzzle);
       print(difficulty);

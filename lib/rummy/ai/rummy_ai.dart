@@ -90,15 +90,15 @@ class RummyAi {
     return same / (same + different);
   }
 
-  /// 1 - trivial, ~10 - very hard
+  /// ~1 - trivial, ~10 - very hard
   static double difficulty(Puzzle puzzle) {
     /// 1. for each solution cards, calculate the largest similarity score to puzzle cards, which has 2 components:
     /// 1a. similarity of (solution cards, puzzle cards)
     /// 1b. similarity of (solution cards, puzzle cards + hands which are useful to the solution)
     /// 1c. similarity score = average(1a, 1b)
     /// 2. now we have a list of similarity scores for each all solution cards
-    /// 3. difficulty := ln(sum(1 - similarity) * #solution * #puzzle + e)
-    final solutionCards = puzzle.intendedSolution.map((e) => e.$2).toList();
+    /// 3. difficulty := ln(sum(1 - similarity) * #solution * #puzzle * #melds + e)
+    final solutionCards = puzzle.solution.map((e) => e.$2).toList();
     final puzzleCards = puzzle.meldCards.map((e) => e.$2).toList();
 
     final similarityScores = <double>[];
@@ -115,8 +115,9 @@ class RummyAi {
     }
     print(similarityScores);
     final difficultyScore = log(similarityScores.map((e) => (1 - e)).reduce((v, e) => v + e) *
-            puzzle.intendedSolution.length *
-            puzzle.meldCards.length +
+            puzzle.solution.length *
+            puzzle.meldCards.length *
+            puzzle.melds.length +
         e);
 
     return difficultyScore;
