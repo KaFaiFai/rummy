@@ -11,7 +11,7 @@ extension on Meld {
         if (allSamples.isNotEmpty) {
           final randomIndex = rnd.nextInt(allSamples.length);
           final randomSamples = allSamples[randomIndex];
-          final randomLength = rnd.nextInt(min(randomSamples.length, maxLength) - (minMeldNum - 1)) + minMeldNum;
+          final randomLength = rnd.nextInt(min(randomSamples.length, maxLength) - (minMeldUnit - 1)) + minMeldUnit;
           final randomStart = rnd.nextInt(randomSamples.length - (randomLength - 1));
           samples = randomSamples.sublist(randomStart, randomStart + randomLength);
         }
@@ -20,7 +20,7 @@ extension on Meld {
         if (allSamples.isNotEmpty) {
           final randomIndex = rnd.nextInt(allSamples.length);
           final randomSamples = allSamples[randomIndex];
-          final randomLength = rnd.nextInt(min(randomSamples.length, maxLength) - (minMeldNum - 1)) + minMeldNum;
+          final randomLength = rnd.nextInt(min(randomSamples.length, maxLength) - (minMeldUnit - 1)) + minMeldUnit;
           randomSamples.shuffle(rnd);
           samples = randomSamples.sublist(0, randomLength);
         }
@@ -32,7 +32,7 @@ extension on Meld {
           final rankBegin = randomSamples.first.rank;
           final rankEnd = randomSamples.last.rank;
           final rankLength = rankEnd - rankBegin + 1;
-          final randomLength = rnd.nextInt(min(rankLength, maxLength) - (minMeldNum - 1)) + minMeldNum;
+          final randomLength = rnd.nextInt(min(rankLength, maxLength) - (minMeldUnit - 1)) + minMeldUnit;
           final randomStart = rnd.nextInt(rankLength - (randomLength - 1));
           samples = [];
           for (var i = randomStart; i < randomStart + randomLength; i++) {

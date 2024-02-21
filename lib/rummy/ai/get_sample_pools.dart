@@ -17,13 +17,13 @@ extension on Meld {
               if (suit[i].rank == run.last.rank + 1) {
                 run.add(suit[i]);
               } else {
-                if (run.length >= minMeldNum) {
+                if (run.length >= minMeldUnit) {
                   runs.add(run);
                 }
                 run = [suit[i]];
               }
             }
-            if (run.length >= minMeldNum) {
+            if (run.length >= minMeldUnit) {
               runs.add(run);
               run = [];
             }
@@ -33,7 +33,7 @@ extension on Meld {
         return runs;
       case Group():
         final suits = List.generate(numRank, (i) => tiles.where((e) => e.rank == i).toSet().toList());
-        final availableSuits = suits.where((e) => e.length >= minMeldNum).toList();
+        final availableSuits = suits.where((e) => e.length >= minMeldUnit).toList();
         return availableSuits;
       case Pairs():
         List<List<Tile>> suits = List.generate(numRank, (i) => tiles.where((e) => e.rank == i).toList());
@@ -45,14 +45,14 @@ extension on Meld {
             if (suits[i].first.rank == suits[indices.last].first.rank + 1) {
               indices.add(i);
             } else {
-              if (indices.length >= minMeldNum) {
+              if (indices.length >= minMeldUnit) {
                 final curPairs = indices.map((e) => suits[e]).expand((e) => e).toList();
                 pairs.add(curPairs);
               }
               indices = [i];
             }
           }
-          if (indices.length >= minMeldNum) {
+          if (indices.length >= minMeldUnit) {
             final curPairs = indices.map((e) => suits[e]).expand((e) => e).toList();
             pairs.add(curPairs);
           }

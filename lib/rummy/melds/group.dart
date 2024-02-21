@@ -16,7 +16,7 @@ class Group extends Meld {
 
   @override
   bool checkTiles(List<Tile> tiles) {
-    if (tiles.length < minMeldNum) {
+    if (tiles.length < minMeldUnit) {
       return false;
     }
 
