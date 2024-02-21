@@ -1,4 +1,4 @@
-import 'package:rummy/rummy/const.dart';
+import 'package:rummy/rummy/util/const.dart';
 
 class Tile {
   final int rank;

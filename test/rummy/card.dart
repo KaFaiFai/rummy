@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rummy/rummy/const.dart';
+import 'package:rummy/rummy/util/const.dart';
 import 'package:rummy/rummy/models/tile.dart';
 
 void main() {

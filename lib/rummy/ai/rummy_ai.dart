@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:rummy/rummy/const.dart';
+import 'package:rummy/rummy/util/const.dart';
 import 'package:rummy/rummy/melds/meld.dart';
 import 'package:rummy/rummy/puzzle.dart';
 

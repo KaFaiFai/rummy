@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:rummy/rummy/const.dart';
+import 'package:rummy/rummy/util/const.dart';
 
 import '../models/tile.dart';
 
