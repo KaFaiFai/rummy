@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:rummy/rummy/util/const.dart';
 import 'package:rummy/rummy/melds/meld.dart';
 import 'package:rummy/rummy/puzzle.dart';
+import 'package:rummy/rummy/util/func.dart';
 
 import '../models/tile.dart';
 

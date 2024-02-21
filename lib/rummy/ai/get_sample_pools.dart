@@ -6,30 +6,14 @@ extension on Meld {
   List<List<Tile>> getSamplePools(List<Tile> tiles) {
     switch (this) {
       case Run():
-        final runs = <List<Tile>>[];
+        List<List<Tile>> runs = <List<Tile>>[];
         for (var i = 0; i < numSuit; i++) {
           // unique tiles of current suit
           final suit = arrangeTiles(tiles.where((e) => e.suit == i).toSet().toList());
-
-          if (suit.length > 1) {
-            List<Tile> run = [suit.first];
-            for (var i = 1; i < suit.length; i++) {
-              if (suit[i].rank == run.last.rank + 1) {
-                run.add(suit[i]);
-              } else {
-                if (run.length >= minMeldUnit) {
-                  runs.add(run);
-                }
-                run = [suit[i]];
-              }
-            }
-            if (run.length >= minMeldUnit) {
-              runs.add(run);
-              run = [];
-            }
-          }
+          final curConsecutive = suit.groupConsecutive((e1, e2) => (e1.rank - e2.rank).abs() == 1);
+          final curRuns = curConsecutive.where((e) => e.length >= minMeldUnit).toList();
+          runs = runs + curRuns;
         }
-
         return runs;
       case Group():
         final suits = List.generate(numRank, (i) => tiles.where((e) => e.rank == i).toSet().toList());
