@@ -3,64 +3,64 @@ import 'dart:math';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rummy/rummy/ai/rummy_ai.dart';
 import 'package:rummy/rummy/melds/meld.dart';
-import 'package:rummy/rummy/models/card.dart';
+import 'package:rummy/rummy/models/tile.dart';
 import 'package:rummy/rummy/puzzle.dart';
 
 void main() {
   group('difficulty', () {
-    test('trvial', () {
+    test('trivial', () {
       final solution = [
-        (Group(), [Card(3, 1), Card(3, 2), Card(3, 3)])
+        (Group(), [Tile(3, 1), Tile(3, 2), Tile(3, 3)])
       ];
-      final meldCards = [
-        (Group(), [Card(3, 1), Card(3, 2), Card(3, 3)])
+      final meldTiles = [
+        (Group(), [Tile(3, 1), Tile(3, 2), Tile(3, 3)])
       ];
-      final hands = <Card>[];
-      final puzzle = Puzzle([Run(), Group()], solution, meldCards, hands);
+      final hands = <Tile>[];
+      final puzzle = Puzzle([Run(), Group()], solution, meldTiles, hands);
       final difficulty = RummyAi.difficulty(puzzle);
       print(difficulty);
     });
 
     test('easy', () {
       final solution = [
-        (Group(), [Card(3, 0), Card(3, 1), Card(3, 2), Card(3, 3)])
+        (Group(), [Tile(3, 0), Tile(3, 1), Tile(3, 2), Tile(3, 3)])
       ];
-      final meldCards = [
-        (Group(), [Card(3, 1), Card(3, 2), Card(3, 3)])
+      final meldTiles = [
+        (Group(), [Tile(3, 1), Tile(3, 2), Tile(3, 3)])
       ];
-      final hands = [Card(3, 0)];
-      final puzzle = Puzzle([Run(), Group()], solution, meldCards, hands);
+      final hands = [Tile(3, 0)];
+      final puzzle = Puzzle([Run(), Group()], solution, meldTiles, hands);
       final difficulty = RummyAi.difficulty(puzzle);
       print(difficulty);
     });
 
     test('medium', () {
       final solution = [
-        (Group(), [Card(3, 0), Card(3, 1), Card(3, 2)]),
-        (Run(), [Card(3, 3), Card(4, 3), Card(5, 3)]),
+        (Group(), [Tile(3, 0), Tile(3, 1), Tile(3, 2)]),
+        (Run(), [Tile(3, 3), Tile(4, 3), Tile(5, 3)]),
       ];
-      final meldCards = [
-        (Group(), [Card(3, 1), Card(3, 2), Card(3, 3)]),
+      final meldTiles = [
+        (Group(), [Tile(3, 1), Tile(3, 2), Tile(3, 3)]),
       ];
-      final hands = [Card(3, 0), Card(4, 3), Card(5, 3)];
-      final puzzle = Puzzle([Run(), Group()], solution, meldCards, hands);
+      final hands = [Tile(3, 0), Tile(4, 3), Tile(5, 3)];
+      final puzzle = Puzzle([Run(), Group()], solution, meldTiles, hands);
       final difficulty = RummyAi.difficulty(puzzle);
       print(difficulty);
     });
 
     test('difficult', () {
-      // final cards1 = [Card(3, 1), Card(3, 2), Card(3, 3)];
-      // final cards2 = [Card(2, 1), Card(2, 2), Card(2, 3)];
-      // final difficulty = RummyAi.difficulty(cards1, cards2);
+      // final tiles1 = [Tile(3, 1), Tile(3, 2), Tile(3, 3)];
+      // final tiles2 = [Tile(2, 1), Tile(2, 2), Tile(2, 3)];
+      // final difficulty = RummyAi.difficulty(tiles1, tiles2);
       // expect(difficulty, equals(0));
     });
 
     test('generated puzzle', () {
       final rnd = Random();
-      final cards = Card.getAllCards() + Card.getAllCards();
+      final tiles = Tile.getAllTiles() + Tile.getAllTiles();
       final melds = [Run(), Group()];
 
-      final puzzle = RummyAi.generatePuzzle(cards, melds, random: rnd, maxCardsLength: 5, maxMeldCards: 7);
+      final puzzle = RummyAi.generatePuzzle(tiles, melds, random: rnd, maxTilesLength: 5, maxMeldTiles: 7);
       print(puzzle);
       final difficulty = RummyAi.difficulty(puzzle);
       print(difficulty);

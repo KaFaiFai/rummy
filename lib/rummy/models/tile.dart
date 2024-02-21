@@ -1,17 +1,17 @@
 import 'package:rummy/rummy/const.dart';
 
-class Card implements Comparable<Card> {
+class Tile implements Comparable<Tile> {
   final int rank;
   final int suit;
 
-  Card(this.rank, this.suit) {
+  Tile(this.rank, this.suit) {
     assert(0 <= rank && rank < numRank);
     assert(0 <= suit && suit < numSuit);
   }
 
-  static List<Card> getAllCards() {
-    final cards = List.generate(numRank * numSuit, (i) => Card(i % 13, (i / 13).floor()));
-    return cards;
+  static List<Tile> getAllTiles() {
+    final tiles = List.generate(numRank * numSuit, (i) => Tile(i % 13, (i / 13).floor()));
+    return tiles;
   }
 
   @override
@@ -27,23 +27,23 @@ class Card implements Comparable<Card> {
 
   @override
   bool operator ==(Object other) {
-    if (other is Card) {
+    if (other is Tile) {
       return rank == other.rank && suit == other.suit;
     }
     return false;
   }
 
-  factory Card.fromJson(String jsonString) {
+  factory Tile.fromJson(String jsonString) {
     final components = jsonString.split(',');
     final rank = int.parse(components[0]);
     final suit = int.parse(components[1]);
-    return Card(rank, suit);
+    return Tile(rank, suit);
   }
 
   String toJson() => "$rank,$suit";
 
   @override
-  int compareTo(Card other) {
+  int compareTo(Tile other) {
     // orders := (rank, suit)
     final compareRank = rank.compareTo(other.rank);
     if (compareRank != 0) {

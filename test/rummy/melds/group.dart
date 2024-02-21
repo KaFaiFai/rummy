@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rummy/rummy/melds/meld.dart';
-import 'package:rummy/rummy/models/card.dart';
+import 'package:rummy/rummy/models/tile.dart';
 
 void main() {
   group('Group', () {
@@ -13,21 +13,21 @@ void main() {
     });
 
     test('arrange', () {
-      final cardsInitial = [Card(2, 2), Card(3, 1), Card(3, 2), Card(3, 3)]..shuffle();
-      final cardsArranged = meldType.arrangeCards(cardsInitial);
-      print(cardsInitial);
-      print(cardsArranged);
-      expect(cardsArranged, equals([Card(3, 1), Card(2, 2), Card(3, 2), Card(3, 3)]));
+      final tilesInitial = [Tile(2, 2), Tile(3, 1), Tile(3, 2), Tile(3, 3)]..shuffle();
+      final tilesArranged = meldType.arrangeTiles(tilesInitial);
+      print(tilesInitial);
+      print(tilesArranged);
+      expect(tilesArranged, equals([Tile(3, 1), Tile(2, 2), Tile(3, 2), Tile(3, 3)]));
     });
 
     test('check - true', () {
-      final cards = [Card(3, 1), Card(3, 2), Card(3, 3)];
-      expect(meldType.checkCards(cards), equals(true));
+      final tiles = [Tile(3, 1), Tile(3, 2), Tile(3, 3)];
+      expect(meldType.checkTiles(tiles), equals(true));
     });
 
     test('check - false', () {
-      final cards = [Card(2, 2), Card(3, 1), Card(3, 2), Card(3, 3)];
-      expect(meldType.checkCards(cards), equals(false));
+      final tiles = [Tile(2, 2), Tile(3, 1), Tile(3, 2), Tile(3, 3)];
+      expect(meldType.checkTiles(tiles), equals(false));
     });
   });
 }

@@ -2,31 +2,31 @@ part of 'meld.dart';
 
 class Group extends Meld {
   @override
-  List<Card> arrangeCards(List<Card> cards) {
-    return [...cards]..sort((card1, card2) {
+  List<Tile> arrangeTiles(List<Tile> tiles) {
+    return [...tiles]..sort((tile1, tile2) {
         // Sort by suit first, then rank
-        if (card1.suit != card2.suit) {
-          return card1.suit.compareTo(card2.suit);
+        if (tile1.suit != tile2.suit) {
+          return tile1.suit.compareTo(tile2.suit);
         } else {
-          return card1.rank.compareTo(card2.rank);
+          return tile1.rank.compareTo(tile2.rank);
         }
       });
   }
 
   @override
-  bool checkCards(List<Card> cards) {
-    if (cards.length < minMeldNum) {
+  bool checkTiles(List<Tile> tiles) {
+    if (tiles.length < minMeldNum) {
       return false;
     }
 
-    final rank = cards.first.rank;
-    for (var card in cards) {
-      if (card.rank != rank) {
+    final rank = tiles.first.rank;
+    for (var tile in tiles) {
+      if (tile.rank != rank) {
         return false;
       }
     }
 
-    final suits = cards.map((e) => e.suit);
+    final suits = tiles.map((e) => e.suit);
     if (suits.length != suits.toSet().length) {
       return false;
     }

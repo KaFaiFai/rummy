@@ -3,17 +3,17 @@ part of 'rummy_ai.dart';
 extension on Meld {
   /// helper function for getRandomSample()
   /// sometimes, it does not make sense to implement this function
-  List<List<Card>> getAllPossibleSamples(List<Card> cards) {
+  List<List<Tile>> getAllPossibleSamples(List<Tile> tiles) {
     switch (this) {
       case Run():
-        final List<List<Card>> runs = [];
+        final List<List<Tile>> runs = [];
         for (var i = 0; i < numSuit; i++) {
-          // unique cards of current suit
-          final suit = cards.where((e) => e.suit == i).toSet().toList();
+          // unique tiles of current suit
+          final suit = tiles.where((e) => e.suit == i).toSet().toList();
           suit.sort();
 
           if (suit.length > 1) {
-            List<Card> run = [suit.first];
+            List<Tile> run = [suit.first];
             for (var i = 1; i < suit.length; i++) {
               if (suit[i].rank == run.last.rank + 1) {
                 run.add(suit[i]);
@@ -33,7 +33,7 @@ extension on Meld {
 
         return runs;
       case Group():
-        final suits = List.generate(numRank, (i) => cards.where((e) => e.rank == i).toSet().toList());
+        final suits = List.generate(numRank, (i) => tiles.where((e) => e.rank == i).toSet().toList());
         final availableSuits = suits.where((e) => e.length >= minMeldNum).toList();
         return availableSuits;
     }

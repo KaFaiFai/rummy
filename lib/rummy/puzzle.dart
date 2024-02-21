@@ -1,40 +1,40 @@
 // reference: https://en.wikipedia.org/wiki/Rummy
 import 'melds/meld.dart';
-import 'models/card.dart';
+import 'models/tile.dart';
 
 class Puzzle {
   final List<Meld> melds;
-  final List<(Meld, List<Card>)> solution;
-  final List<(Meld, List<Card>)> meldCards;
-  final List<Card> hands;
+  final List<(Meld, List<Tile>)> solution;
+  final List<(Meld, List<Tile>)> meldTiles;
+  final List<Tile> hands;
 
-  Puzzle(this.melds, this.solution, this.meldCards, this.hands) {
-    for (var (meld, cards) in solution) {
-      assert(melds.contains(meld), "Unknown meldCard ${(meld, cards)} in $melds");
-      assert(meld.checkCards(cards), "meldCard mismatch ${(meld, cards)}");
+  Puzzle(this.melds, this.solution, this.meldTiles, this.hands) {
+    for (var (meld, tiles) in solution) {
+      assert(melds.contains(meld), "Unknown meldTile ${(meld, tiles)} in $melds");
+      assert(meld.checkTiles(tiles), "meldTile mismatch ${(meld, tiles)}");
     }
-    for (var (meld, cards) in meldCards) {
-      assert(melds.contains(meld), "Unknown meldCard ${(meld, cards)} in $melds");
-      assert(meld.checkCards(cards), "meldCard mismatch ${(meld, cards)}");
+    for (var (meld, tiles) in meldTiles) {
+      assert(melds.contains(meld), "Unknown meldTile ${(meld, tiles)} in $melds");
+      assert(meld.checkTiles(tiles), "meldTile mismatch ${(meld, tiles)}");
     }
-    final solutionCards = solution.expand((e) => e.$2).toList();
-    final puzzleCards = meldCards.expand((e) => e.$2).toList() + hands;
+    final solutionTiles = solution.expand((e) => e.$2).toList();
+    final puzzleTiles = meldTiles.expand((e) => e.$2).toList() + hands;
 
-    final extraSolutionCards = [...solutionCards];
-    for (var card in puzzleCards) {
-      extraSolutionCards.remove(card);
+    final extraSolutionTiles = [...solutionTiles];
+    for (var tile in puzzleTiles) {
+      extraSolutionTiles.remove(tile);
     }
-    assert(extraSolutionCards.isEmpty, "Extra solution cards: $extraSolutionCards");
+    assert(extraSolutionTiles.isEmpty, "Extra solution tiles: $extraSolutionTiles");
 
-    final extraPuzzleCards = [...puzzleCards];
-    for (var card in puzzleCards) {
-      extraPuzzleCards.remove(card);
+    final extraPuzzleTiles = [...puzzleTiles];
+    for (var tile in puzzleTiles) {
+      extraPuzzleTiles.remove(tile);
     }
-    assert(extraPuzzleCards.isEmpty, "Extra puzzle cards: $extraPuzzleCards");
+    assert(extraPuzzleTiles.isEmpty, "Extra puzzle tiles: $extraPuzzleTiles");
   }
 
   @override
   String toString() {
-    return "Melds: $melds\nSolution:$solution\nCards: $meldCards\nHands: $hands";
+    return "Melds: $melds\nSolution:$solution\nTiles: $meldTiles\nHands: $hands";
   }
 }

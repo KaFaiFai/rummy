@@ -1,13 +1,13 @@
 part of 'rummy_ai.dart';
 
 extension on Meld {
-  List<Card>? getRandomSample(List<Card> cards, {Random? random, int maxLength = 10000}) {
+  List<Tile>? getRandomSample(List<Tile> tiles, {Random? random, int maxLength = 10000}) {
     final rnd = random ?? Random();
 
-    List<Card>? samples;
+    List<Tile>? samples;
     switch (this) {
       case Run():
-        final allSamples = getAllPossibleSamples(cards);
+        final allSamples = getAllPossibleSamples(tiles);
 
         if (allSamples.isNotEmpty) {
           final randomIndex = rnd.nextInt(allSamples.length);
@@ -17,7 +17,7 @@ extension on Meld {
           samples = randomSamples.sublist(randomRunStart, randomRunStart + randomLength);
         }
       case Group():
-        final allSamples = getAllPossibleSamples(cards);
+        final allSamples = getAllPossibleSamples(tiles);
         if (allSamples.isNotEmpty) {
           final randomIndex = rnd.nextInt(allSamples.length);
           final randomSamples = allSamples[randomIndex];
@@ -30,7 +30,7 @@ extension on Meld {
     if (samples == null) {
       return null;
     }
-    assert(checkCards(samples));
-    return arrangeCards(samples);
+    assert(checkTiles(samples));
+    return arrangeTiles(samples);
   }
 }

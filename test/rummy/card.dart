@@ -2,43 +2,43 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rummy/rummy/const.dart';
-import 'package:rummy/rummy/models/card.dart';
+import 'package:rummy/rummy/models/tile.dart';
 
 void main() {
-  group('Card', () {
+  group('Tile', () {
     test('serialize', () {
-      var card = Card(1, 2);
-      String jsonString = jsonEncode(card);
+      var tile = Tile(1, 2);
+      String jsonString = jsonEncode(tile);
       print(jsonString);
       expect(jsonString, equals('''"1,2"'''));
 
-      var cardJson = jsonDecode(jsonString) as String;
-      card = Card.fromJson(cardJson);
-      print("$card");
-      expect(card.rank, equals(1));
-      expect(card.suit, equals(2));
+      var tileJson = jsonDecode(jsonString) as String;
+      tile = Tile.fromJson(tileJson);
+      print("$tile");
+      expect(tile.rank, equals(1));
+      expect(tile.suit, equals(2));
     });
 
-    test('getAllCards', () {
-      final cards = Card.getAllCards();
-      print(cards);
-      expect(cards.length, equals(numRank * numSuit));
+    test('getAllTiles', () {
+      final tiles = Tile.getAllTiles();
+      print(tiles);
+      expect(tiles.length, equals(numRank * numSuit));
     });
 
     test('hash', () {
-      final card = Card(1, 2);
-      final card2 = Card(1, 2);
-      expect(card == card2, equals(true));
+      final tile = Tile(1, 2);
+      final tile2 = Tile(1, 2);
+      expect(tile == tile2, equals(true));
 
-      final cards = {card, card2};
-      expect(cards, equals({Card(1, 2)}));
+      final tiles = {tile, tile2};
+      expect(tiles, equals({Tile(1, 2)}));
     });
 
     test('compare', () {
-      final cards = [Card(2, 2), Card(3, 1), Card(3, 2), Card(3, 3)]..shuffle();
-      print(cards);
-      final cardsSorted = cards..sort();
-      expect(cardsSorted, equals([Card(2, 2), Card(3, 1), Card(3, 2), Card(3, 3)]));
+      final tiles = [Tile(2, 2), Tile(3, 1), Tile(3, 2), Tile(3, 3)]..shuffle();
+      print(tiles);
+      final tilesSorted = tiles..sort();
+      expect(tilesSorted, equals([Tile(2, 2), Tile(3, 1), Tile(3, 2), Tile(3, 3)]));
     });
   });
 }

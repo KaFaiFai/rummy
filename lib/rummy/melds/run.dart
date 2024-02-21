@@ -2,31 +2,31 @@ part of 'meld.dart';
 
 class Run extends Meld {
   @override
-  List<Card> arrangeCards(List<Card> cards) {
-    return [...cards]..sort((card1, card2) {
+  List<Tile> arrangeTiles(List<Tile> tiles) {
+    return [...tiles]..sort((tile1, tile2) {
         // Sort by rank first, then suit
-        if (card1.rank != card2.rank) {
-          return card1.rank.compareTo(card2.rank);
+        if (tile1.rank != tile2.rank) {
+          return tile1.rank.compareTo(tile2.rank);
         } else {
-          return card1.suit.compareTo(card2.suit);
+          return tile1.suit.compareTo(tile2.suit);
         }
       });
   }
 
   @override
-  bool checkCards(List<Card> cards) {
-    if (cards.length < minMeldNum) {
+  bool checkTiles(List<Tile> tiles) {
+    if (tiles.length < minMeldNum) {
       return false;
     }
 
-    final cardsSorted = arrangeCards(cards);
+    final tilesSorted = arrangeTiles(tiles);
 
-    final suit = cardsSorted.first.suit;
-    final begin = cardsSorted.first.rank;
+    final suit = tilesSorted.first.suit;
+    final begin = tilesSorted.first.rank;
 
-    for (var (i, card) in cardsSorted.indexed) {
-      final cardExpected = Card(begin + i, suit);
-      if (card != cardExpected) {
+    for (var (i, tile) in tilesSorted.indexed) {
+      final tileExpected = Tile(begin + i, suit);
+      if (tile != tileExpected) {
         return false;
       }
     }
