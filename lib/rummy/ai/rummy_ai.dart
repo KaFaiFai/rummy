@@ -7,6 +7,7 @@ import 'package:rummy/rummy/puzzle.dart';
 import '../models/card.dart';
 
 part 'get_all_possible_samples.dart';
+
 part 'get_random_sample.dart';
 
 class RummyAi {
@@ -89,41 +90,28 @@ class RummyAi {
     return same / (same + different);
   }
 
+  /// 1 - trivial, ~10 - very hard
   static double difficulty(Puzzle puzzle) {
-    /// 1. calculate the similarity of each solution and puzzle cards pair
-    /// 2. match them from the largest similarity using greedy algorithm
-    /// 3. any remaining cards are matched with an empty card list
-    /// 4. now we have a list of matches which includes all solution and puzzle cards and their similarities
-    /// 5. difficulty := ln(sum(1 - similarity) * #solution * #puzzle + e)
+    /// 1. for each solution cards, calculate the largest similarity score to puzzle cards, which has 2 components:
+    /// 1a. similarity of (solution cards, puzzle cards)
+    /// 1b. similarity of (solution cards, puzzle cards + hands which are useful to the solution)
+    /// 1c. similarity score = average(1a, 1b)
+    /// 2. now we have a list of similarity scores for each all solution cards
+    /// 3. difficulty := ln(sum(1 - similarity) * #solution * #puzzle + e)
     final solutionCards = puzzle.intendedSolution.map((e) => e.$2).toList();
     final puzzleCards = puzzle.meldCards.map((e) => e.$2).toList();
 
     final similarityScores = <double>[];
-    while (solutionCards.isNotEmpty || puzzleCards.isNotEmpty) {
-      if (solutionCards.isEmpty) {
-        final cards = puzzleCards.first;
-        similarityScores.add(similarity(cards, []));
-        puzzleCards.remove(cards);
-      } else if (puzzleCards.isEmpty) {
-        final cards = solutionCards.first;
-        similarityScores.add(similarity(cards, []));
-        solutionCards.remove(cards);
-      } else {
-        double similarityScore = 0;
-        (List<Card>, List<Card>) match = (solutionCards.first, puzzleCards.first);
-        for (var sc in solutionCards) {
-          for (var pc in puzzleCards) {
-            final sim = similarity(sc, pc);
-            if (sim > similarityScore) {
-              similarityScore = sim;
-              match = (sc, pc);
-            }
-          }
+    for (var sc in solutionCards) {
+      double similarityScore = 0;
+      for (var pc in puzzleCards) {
+        final supplementCards = puzzle.hands.where((e) => sc.contains(e) && !pc.contains(e)).toList();
+        final sim = (similarity(sc, pc) + similarity(sc, pc + supplementCards)) / 2;
+        if (sim > similarityScore) {
+          similarityScore = sim;
         }
-        similarityScores.add(similarityScore);
-        solutionCards.remove(match.$1);
-        puzzleCards.remove(match.$2);
       }
+      similarityScores.add(similarityScore);
     }
     print(similarityScores);
     final difficultyScore = log(similarityScores.map((e) => (1 - e)).reduce((v, e) => v + e) *

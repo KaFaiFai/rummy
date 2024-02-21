@@ -8,6 +8,19 @@ import 'package:rummy/rummy/puzzle.dart';
 
 void main() {
   group('difficulty', () {
+    test('trvial', () {
+      final solution = [
+        (Group(), [Card(3, 1), Card(3, 2), Card(3, 3)])
+      ];
+      final meldCards = [
+        (Group(), [Card(3, 1), Card(3, 2), Card(3, 3)])
+      ];
+      final hands = <Card>[];
+      final puzzle = Puzzle([Run(), Group()], solution, meldCards, hands);
+      final difficulty = RummyAi.difficulty(puzzle);
+      print(difficulty);
+    });
+
     test('easy', () {
       final solution = [
         (Group(), [Card(3, 0), Card(3, 1), Card(3, 2), Card(3, 3)])
@@ -44,10 +57,10 @@ void main() {
 
     test('generated puzzle', () {
       final rnd = Random();
-      final cards = Card.getAllCards();
+      final cards = Card.getAllCards() + Card.getAllCards();
       final melds = [Run(), Group()];
 
-      final puzzle = RummyAi.generatePuzzle(cards, melds, random: rnd, maxCardsLength: 5, maxMeldCards: 4);
+      final puzzle = RummyAi.generatePuzzle(cards, melds, random: rnd, maxCardsLength: 5, maxMeldCards: 15);
       print(puzzle);
       final difficulty = RummyAi.difficulty(puzzle);
       print(difficulty);
