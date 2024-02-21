@@ -74,6 +74,34 @@ class RummyAi {
     return Puzzle(melds, allPuzzleMeldCards, initialMeldCards, hands);
   }
 
+  /// constraint: return true for wanted puzzle
+  static Puzzle? generatePuzzleWithConstraint(
+    List<Card> cards,
+    List<Meld> melds,
+    bool Function(Puzzle) constraint, {
+    Random? random,
+    int maxCardsLength = 10000,
+    int maxMeldCards = 10000,
+    int maxRetry = 100000,
+  }) {
+    Puzzle? puzzle;
+    int count = 0;
+    while (puzzle == null && count < maxRetry) {
+      final generatedPuzzle = generatePuzzle(
+        cards,
+        melds,
+        random: random,
+        maxCardsLength: maxCardsLength,
+        maxMeldCards: maxMeldCards,
+      );
+      if (constraint(generatedPuzzle)) {
+        puzzle = generatedPuzzle;
+      }
+      count++;
+    }
+    return puzzle;
+  }
+
   /// 0 - entirely different, 1 - identical
   static double similarity(List<Card> cards1, List<Card> cards2) {
     final extraCards1 = [...cards1];
@@ -113,7 +141,7 @@ class RummyAi {
       }
       similarityScores.add(similarityScore);
     }
-    print(similarityScores);
+
     final difficultyScore = log(similarityScores.map((e) => (1 - e)).reduce((v, e) => v + e) *
             puzzle.solution.length *
             puzzle.meldCards.length *
