@@ -6,7 +6,7 @@ import 'package:rummy/rummy/puzzle.dart';
 
 import '../models/tile.dart';
 
-part 'get_all_possible_samples.dart';
+part 'get_sample_pools.dart';
 
 part 'get_random_sample.dart';
 

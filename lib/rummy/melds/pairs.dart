@@ -1,7 +1,7 @@
 part of 'meld.dart';
 
-/// three or more consecutive cards of the same suit, e.g. 1♡, 2♡, 3♡
-class Run extends Meld {
+/// three or more consecutive pairs, e.g. 1♡, 1♣, 2♡, 2♢, 3♢, 3♡
+class Pairs extends Meld {
   @override
   List<Tile> arrangeTiles(List<Tile> tiles) {
     return [...tiles]..sort((tile1, tile2) {
@@ -20,13 +20,14 @@ class Run extends Meld {
       return false;
     }
 
-    final tilesSorted = arrangeTiles(tiles);
-
-    final suit = tilesSorted.first.suit;
-    final begin = tilesSorted.first.rank;
-
-    for (var (i, tile) in tilesSorted.indexed) {
-      if (tile.rank != begin + i || tile.suit != suit) {
+    final ranksAppeared = tiles.map((e) => e.rank).toSet().toList()..sort();
+    final begin = ranksAppeared.first;
+    for (var (i, rank) in ranksAppeared.indexed) {
+      if (rank != begin + i) {
+        return false;
+      }
+      final tilesCurRank = tiles.where((e) => e.rank == rank).map((e) => e.suit);
+      if (tilesCurRank.length != 2) {
         return false;
       }
     }

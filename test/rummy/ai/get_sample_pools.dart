@@ -16,5 +16,10 @@ void main() {
       final samples = RummyAi.getSamplePools(tiles, Group());
       print(samples);
     });
+
+    test('pairs', () {
+      final samples = RummyAi.getSamplePools(tiles, Pairs());
+      print(samples);
+    });
   });
 }

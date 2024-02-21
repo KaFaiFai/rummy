@@ -8,13 +8,12 @@ extension on Meld {
     switch (this) {
       case Run():
         final allSamples = getSamplePools(tiles);
-
         if (allSamples.isNotEmpty) {
           final randomIndex = rnd.nextInt(allSamples.length);
           final randomSamples = allSamples[randomIndex];
           final randomLength = rnd.nextInt(min(randomSamples.length, maxLength) - (minMeldNum - 1)) + minMeldNum;
-          final randomRunStart = rnd.nextInt(randomSamples.length - (randomLength - 1));
-          samples = randomSamples.sublist(randomRunStart, randomRunStart + randomLength);
+          final randomStart = rnd.nextInt(randomSamples.length - (randomLength - 1));
+          samples = randomSamples.sublist(randomStart, randomStart + randomLength);
         }
       case Group():
         final allSamples = getSamplePools(tiles);
@@ -24,6 +23,22 @@ extension on Meld {
           final randomLength = rnd.nextInt(min(randomSamples.length, maxLength) - (minMeldNum - 1)) + minMeldNum;
           randomSamples.shuffle(rnd);
           samples = randomSamples.sublist(0, randomLength);
+        }
+      case Pairs():
+        final allSamples = getSamplePools(tiles);
+        if (allSamples.isNotEmpty) {
+          final randomIndex = rnd.nextInt(allSamples.length);
+          final randomSamples = allSamples[randomIndex];
+          final rankBegin = randomSamples.first.rank;
+          final rankEnd = randomSamples.last.rank;
+          final rankLength = rankEnd - rankBegin + 1;
+          final randomLength = rnd.nextInt(min(rankLength, maxLength) - (minMeldNum - 1)) + minMeldNum;
+          final randomStart = rnd.nextInt(rankLength - (randomLength - 1));
+          samples = [];
+          for (var i = randomStart; i < randomStart + randomLength; i++) {
+            final randomPair = (randomSamples.where((e) => e.rank == i).toList()..shuffle(rnd)).sublist(0, 2);
+            samples = samples! + randomPair;
+          }
         }
     }
 

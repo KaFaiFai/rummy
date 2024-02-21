@@ -18,5 +18,10 @@ void main() {
       final sample = RummyAi.getRandomSample(tiles, Group(), random: Random(0));
       print(sample);
     });
+
+    test('pairs', () {
+      final sample = RummyAi.getRandomSample(tiles, Pairs(), random: Random(0), maxLength: 3);
+      print(sample);
+    });
   });
 }

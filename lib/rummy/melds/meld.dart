@@ -6,6 +6,8 @@ import '../models/tile.dart';
 
 part 'group.dart';
 
+part 'pairs.dart';
+
 part 'run.dart';
 
 sealed class Meld {
@@ -26,6 +28,7 @@ sealed class Meld {
     return switch (json["_class"]) {
       "Run" => Run(),
       "Group" => Group(),
+      "Pairs" => Pairs(),
       _ => throw 'Invalid Meld type',
     };
   }
