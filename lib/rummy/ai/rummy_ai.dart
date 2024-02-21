@@ -13,8 +13,8 @@ part 'get_random_sample.dart';
 class RummyAi {
   RummyAi._();
 
-  static List<List<Tile>> getAllPossibleSamples(List<Tile> tiles, Meld meld) {
-    return meld.getAllPossibleSamples(tiles);
+  static List<List<Tile>> getSamplePools(List<Tile> tiles, Meld meld) {
+    return meld.getSamplePools(tiles);
   }
 
   static List<Tile>? getRandomSample(List<Tile> tiles, Meld meld, {Random? random, int maxLength = 10000}) {

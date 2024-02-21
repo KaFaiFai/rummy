@@ -7,7 +7,7 @@ extension on Meld {
     List<Tile>? samples;
     switch (this) {
       case Run():
-        final allSamples = getAllPossibleSamples(tiles);
+        final allSamples = getSamplePools(tiles);
 
         if (allSamples.isNotEmpty) {
           final randomIndex = rnd.nextInt(allSamples.length);
@@ -17,7 +17,7 @@ extension on Meld {
           samples = randomSamples.sublist(randomRunStart, randomRunStart + randomLength);
         }
       case Group():
-        final allSamples = getAllPossibleSamples(tiles);
+        final allSamples = getSamplePools(tiles);
         if (allSamples.isNotEmpty) {
           final randomIndex = rnd.nextInt(allSamples.length);
           final randomSamples = allSamples[randomIndex];

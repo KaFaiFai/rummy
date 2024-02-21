@@ -3,7 +3,7 @@ part of 'rummy_ai.dart';
 extension on Meld {
   /// helper function for getRandomSample()
   /// sometimes, it does not make sense to implement this function
-  List<List<Tile>> getAllPossibleSamples(List<Tile> tiles) {
+  List<List<Tile>> getSamplePools(List<Tile> tiles) {
     switch (this) {
       case Run():
         final List<List<Tile>> runs = [];

@@ -4,16 +4,16 @@ import 'package:rummy/rummy/melds/meld.dart';
 import 'package:rummy/rummy/models/tile.dart';
 
 void main() {
-  group('getAllPossibleSamples', () {
+  group('getSamplePools', () {
     final tiles = Tile.getAllTiles()..shuffle();
 
     test('run', () {
-      final samples = RummyAi.getAllPossibleSamples(tiles, Run());
+      final samples = RummyAi.getSamplePools(tiles, Run());
       print(samples);
     });
 
     test('group', () {
-      final samples = RummyAi.getAllPossibleSamples(tiles, Group());
+      final samples = RummyAi.getSamplePools(tiles, Group());
       print(samples);
     });
   });
