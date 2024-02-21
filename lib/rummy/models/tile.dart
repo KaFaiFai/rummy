@@ -1,6 +1,6 @@
 import 'package:rummy/rummy/const.dart';
 
-class Tile implements Comparable<Tile> {
+class Tile {
   final int rank;
   final int suit;
 
@@ -17,7 +17,7 @@ class Tile implements Comparable<Tile> {
   @override
   String toString() {
     const suitChars = '♠♡♣♢';
-    return "$rank${suitChars[suit % 4]}";
+    return "${rank + 1}${suitChars[suit % 4]}";
   }
 
   @override
@@ -41,14 +41,4 @@ class Tile implements Comparable<Tile> {
   }
 
   String toJson() => "$rank,$suit";
-
-  @override
-  int compareTo(Tile other) {
-    // orders := (rank, suit)
-    final compareRank = rank.compareTo(other.rank);
-    if (compareRank != 0) {
-      return compareRank;
-    }
-    return suit.compareTo(other.suit);
-  }
 }

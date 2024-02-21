@@ -5,7 +5,7 @@ import 'package:rummy/rummy/models/tile.dart';
 
 void main() {
   group('getAllPossibleSamples', () {
-    final tiles = Tile.getAllTiles();
+    final tiles = Tile.getAllTiles()..shuffle();
 
     test('run', () {
       final samples = RummyAi.getAllPossibleSamples(tiles, Run());

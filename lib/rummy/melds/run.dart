@@ -1,5 +1,6 @@
 part of 'meld.dart';
 
+/// three or more consecutive cards of the same suit, e.g. 1♡, 2♡, 3♡
 class Run extends Meld {
   @override
   List<Tile> arrangeTiles(List<Tile> tiles) {

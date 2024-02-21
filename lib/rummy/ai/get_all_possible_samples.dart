@@ -9,8 +9,7 @@ extension on Meld {
         final List<List<Tile>> runs = [];
         for (var i = 0; i < numSuit; i++) {
           // unique tiles of current suit
-          final suit = tiles.where((e) => e.suit == i).toSet().toList();
-          suit.sort();
+          final suit = arrangeTiles(tiles.where((e) => e.suit == i).toSet().toList());
 
           if (suit.length > 1) {
             List<Tile> run = [suit.first];

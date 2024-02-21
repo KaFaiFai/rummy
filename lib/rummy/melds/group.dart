@@ -1,5 +1,6 @@
 part of 'meld.dart';
 
+/// three or more cards of the same rank with different suits, e.g. 1♡, 1♣, 1♢
 class Group extends Meld {
   @override
   List<Tile> arrangeTiles(List<Tile> tiles) {
