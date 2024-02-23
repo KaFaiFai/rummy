@@ -3,7 +3,7 @@ import 'package:rummy/view/with_app_container.dart';
 
 import '../../rummy/models/tile.dart';
 
-void main() async {
+void main() {
   runWithAppContainer(
     TileCard(tile: Tile(1, 2)),
     title: "TileCard",
