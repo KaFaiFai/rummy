@@ -5,9 +5,7 @@ import '../../rummy/models/tile.dart';
 
 void main() async {
   runWithAppContainer(
-    TileCard(
-      tile: Tile(1, 2),
-    ),
+    TileCard(tile: Tile(1, 2)),
     title: "TileCard",
   );
 }

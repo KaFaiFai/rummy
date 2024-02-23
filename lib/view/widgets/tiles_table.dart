@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rummy/view/widgets/tile_card.dart';
+import 'package:rummy/view/widgets/tiles_row.dart';
 
 import '../../rummy/models/tile.dart';
 import '../with_app_container.dart';
@@ -17,20 +17,6 @@ void main() async {
   );
 }
 
-class TilesRow extends StatelessWidget {
-  final List<Tile> tiles;
-
-  const TilesRow({super.key, required this.tiles});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: tiles.map((e) => TileCard(tile: e)).toList(),
-    );
-  }
-}
-
 class TilesTable extends StatelessWidget {
   final List<List<Tile>> tileSets;
 
@@ -40,8 +26,8 @@ class TilesTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       alignment: WrapAlignment.center,
-      runSpacing: 20.0,
-      spacing: 20.0,
+      runSpacing: 10.0,
+      spacing: 10.0,
       children: tileSets.map((e) => TilesRow(tiles: e)).toList(),
     );
   }
