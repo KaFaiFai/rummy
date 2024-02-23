@@ -27,13 +27,15 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        TilesTable(tileSets: tileSets),
-        TilesRow(tiles: hands),
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TilesTable(tileSets: tileSets),
+          TilesRow(tiles: hands),
+        ],
+      ),
     );
   }
 }

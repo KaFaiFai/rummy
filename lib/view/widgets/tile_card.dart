@@ -18,6 +18,8 @@ class TileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 60,
+      height: 60,
       decoration: BoxDecoration(
         border: Border.all(
           color: Theme.of(context).colorScheme.onPrimaryContainer,
@@ -25,7 +27,7 @@ class TileCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(5),
       ),
-      child: Text(tile.toString()),
+      child: Center(child: Text(tile.toString())),
     );
   }
 }
