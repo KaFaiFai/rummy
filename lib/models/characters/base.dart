@@ -30,6 +30,5 @@ abstract class CharacterBase {
   void attack(CharacterBase other) {
     final finalDamage = damage - other.shield;
     other.receiveDamage(finalDamage);
-    setDamage(0);
   }
 }

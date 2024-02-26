@@ -12,15 +12,13 @@ class BattleStateMachine {
 
   BattleStateMachine(this.data);
 
-  void begin() {
-    curState.begin(data);
+  void update() {
+    curState.update(data);
   }
 
-  void end() {
+  void enterNextState() {
     curState.end(data);
-  }
-
-  void toNextState() {
     curState = _states[(_states.indexOf(curState) + 1) % 3];
+    curState.begin(data);
   }
 }
