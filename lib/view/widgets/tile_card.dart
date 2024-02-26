@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rummy/view/with_app_container.dart';
 
-import '../../rummy/models/tile.dart';
+import '../../rummy/tile.dart';
 
 void main() {
   runWithAppContainer(

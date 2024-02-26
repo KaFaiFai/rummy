@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:rummy/rummy/util/const.dart';
 
-import '../models/tile.dart';
+import '../tile.dart';
 
 part 'group.dart';
 

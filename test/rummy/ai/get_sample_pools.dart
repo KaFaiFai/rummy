@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rummy/rummy/ai/rummy_ai.dart';
 import 'package:rummy/rummy/melds/meld.dart';
-import 'package:rummy/rummy/models/tile.dart';
+import 'package:rummy/rummy/tile.dart';
 
 void main() {
   group('getSamplePools', () {

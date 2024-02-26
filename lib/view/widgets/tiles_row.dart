@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rummy/view/widgets/tile_card.dart';
 
-import '../../rummy/models/tile.dart';
+import '../../rummy/tile.dart';
 
 class TilesRow extends StatelessWidget {
   final List<Tile> tiles;

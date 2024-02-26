@@ -5,7 +5,7 @@ import 'package:rummy/rummy/melds/meld.dart';
 import 'package:rummy/rummy/puzzle.dart';
 import 'package:rummy/rummy/util/func.dart';
 
-import '../models/tile.dart';
+import '../tile.dart';
 
 part 'get_sample_pools.dart';
 

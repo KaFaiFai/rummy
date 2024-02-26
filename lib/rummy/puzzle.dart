@@ -1,6 +1,6 @@
 // reference: https://en.wikipedia.org/wiki/Rummy
 import 'melds/meld.dart';
-import 'models/tile.dart';
+import 'tile.dart';
 
 class Puzzle {
   final List<Meld> melds;
