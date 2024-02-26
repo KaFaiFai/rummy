@@ -1,7 +1,9 @@
 import '../battle_data.dart';
 
 abstract class BattleState {
-  void onBegin(BattleData battleData);
+  void begin(BattleData battleData);
 
-  void onEnd(BattleData battleData);
+  void update(BattleData battleData);
+
+  void end(BattleData battleData);
 }
