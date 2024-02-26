@@ -1,12 +1,11 @@
+import 'package:rummy/models/battle/states/attack_state.dart';
 import 'package:rummy/models/battle/states/base.dart';
-import 'package:rummy/models/battle/states/enemy_state.dart';
-import 'package:rummy/models/battle/states/free_state.dart';
-import 'package:rummy/models/battle/states/hero_state.dart';
+import 'package:rummy/models/battle/states/tile_state.dart';
 
 import 'battle_data.dart';
 
 class BattleStateMachine {
-  static final _states = [FreeState(), HeroState(), EnemyState()];
+  static final _states = [TileState(), AttackState()];
   BattleState curState = _states.first;
   BattleData data;
   int curRound = 0;
@@ -15,10 +14,6 @@ class BattleStateMachine {
 
   void begin() {
     curState.begin(data);
-  }
-
-  void update() {
-    curState.update(data);
   }
 
   void end() {

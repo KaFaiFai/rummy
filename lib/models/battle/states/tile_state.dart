@@ -2,9 +2,12 @@ import 'package:rummy/models/battle/battle_data.dart';
 
 import 'base.dart';
 
-class HeroState extends BattleState {
+class TileState extends BattleState {
   @override
-  void begin(BattleData battleData) {}
+  void begin(BattleData battleData) {
+    battleData.slottedTiles.clear();
+    battleData.drawTiles();
+  }
 
   @override
   void update(BattleData battleData) {}

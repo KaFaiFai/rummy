@@ -1,5 +1,3 @@
-import 'dart:math';
-
 abstract class CharacterBase {
   final int maxHP;
   int curHP;
@@ -25,7 +23,7 @@ abstract class CharacterBase {
       setShield(shield - value);
     } else {
       setShield(0);
-      curHP = max(curHP - (value - shield), 0);
+      curHP = curHP - (value - shield);
     }
   }
 
