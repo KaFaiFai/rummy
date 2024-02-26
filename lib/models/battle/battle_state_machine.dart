@@ -8,7 +8,6 @@ class BattleStateMachine {
   static final _states = [TileState(), AttackState()];
   BattleState curState = _states.first;
   BattleData data;
-  int curRound = 0;
 
   BattleStateMachine(this.data);
 
