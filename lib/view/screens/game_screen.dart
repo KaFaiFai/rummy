@@ -15,7 +15,7 @@ void main() {
   final hands = [Tile(2, 2), Tile(3, 0), Tile(3, 1), Tile(3, 2), Tile(3, 3)];
   runWithAppContainer(
     GameScreen(tileSets: tileSets, hands: hands),
-    title: "TilesTable",
+    title: "GameScreen",
   );
 }
 
