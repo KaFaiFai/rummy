@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rummy/view/widgets/tiles_row.dart';
-import 'package:rummy/view/widgets/tiles_table.dart';
 
 import '../../rummy/tile.dart';
 import '../with_app_container.dart';
@@ -32,8 +30,8 @@ class GameScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          TilesTable(tileSets: tileSets),
-          TilesRow(tiles: hands),
+          // TilesTable(tileSets: tileSets),
+          // TilesRow(tiles: hands),
         ],
       ),
     );

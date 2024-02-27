@@ -11,7 +11,7 @@ void main() {
 }
 
 class TileCard extends StatelessWidget {
-  final Tile tile;
+  final Tile? tile;
 
   const TileCard({super.key, required this.tile});
 
